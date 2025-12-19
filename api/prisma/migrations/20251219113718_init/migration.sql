@@ -1,9 +1,9 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "userId" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
     "passwordHash" TEXT NOT NULL,
-    "name" TEXT
+    "name" TEXT NOT NULL DEFAULT ''
 );
 
 -- CreateIndex
