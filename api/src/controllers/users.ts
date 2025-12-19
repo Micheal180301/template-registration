@@ -7,7 +7,10 @@ import type {
   TypeRequestLogin,
   TypeResponceLogin,
   TypeResponceSuccessfulLogin,
+  TypeRequestRegister,
+  TypeResponceRegister,
 } from './types';
+import { token } from 'morgan';
 
 const prisma = new PrismaClient();
 
@@ -51,6 +54,57 @@ export const login = async (req: TypeRequestLogin, res: TypeResponceLogin) => {
     return res.status(200).json(userData);
   } catch (error) {
     console.log('Ошибка в Login:', error);
+    return res.status(500).json({ error: 'Неизвестная ошибка на сервере' });
+  }
+};
+
+/**
+ * @route POST /api/user/register
+ * @desc регистрация
+ * @access Public
+ */
+
+export const register = async (
+  req: TypeRequestRegister,
+  res: TypeResponceRegister
+) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password)
+      return res.status(400).json({ error: 'Запоните обязательные поля' });
+
+    const isUser = await prisma.user.findFirst({ where: { email: email } });
+
+    if (isUser)
+      return res
+        .status(409) // статус для уже существующих ресурсов
+        .json({ error: 'Пользователь с таким email уже существует' });
+
+    const salt = await bcrypt.genSalt(10);
+
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
+        passwordHash: hashedPassword,
+      },
+    }); // возвращает обект уже с userId
+
+    const secret = process.env.JWT_SECRET;
+
+    if (!secret) return res.status(500).json({ error: 'Ошибка сервера' });
+
+    return res.status(201).json({
+      userId: user.id,
+      email: user.email,
+      name: user.name!,
+      token: jwt.sign({ userId: user.id }, secret, { expiresIn: '30d' }),
+    });
+  } catch (error) {
+    console.log('Ошибка в register: ', error);
     return res.status(500).json({ error: 'Неизвестная ошибка на сервере' });
   }
 };

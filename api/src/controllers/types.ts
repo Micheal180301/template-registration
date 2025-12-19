@@ -21,3 +21,26 @@ type TypeResponcetLoginError = {
 export type TypeResponceLogin = Response<
   TypeResponceSuccessfulLogin | TypeResponcetLoginError
 >; // в Responce только два параметра Response<ResBody, Locals>, на место ResBody мы помещаем наш касттмный тип при этом все основные методы Responce(res.status(400) res.json(data) res.send(text) res.redirect()) остаются
+
+type TypeRequestRegisterBody = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type TypeRequestRegister = Request<{}, {}, TypeRequestRegisterBody>; // по аналогии с TypeRequestLogin
+
+type TypeResponceRegisterError = {
+  error: string;
+};
+
+type TypeResponceSuccessfulRegister = {
+  name: string;
+  email: string;
+  userId: string;
+  token: string;
+};
+
+export type TypeResponceRegister = Response<
+  TypeResponceSuccessfulLogin | TypeResponceRegisterError
+>;
