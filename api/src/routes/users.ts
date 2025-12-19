@@ -1,11 +1,13 @@
 import express from 'express';
+import { login, register, current } from '../controllers/users';
+import { auth } from '../middleware/auth';
 
 const routerUsers = express.Router();
 
-routerUsers.post('/login', (req, res) => res.json('login'));
+routerUsers.post('/login', login);
 
-routerUsers.post('/register', (req, res) => res.json('register'));
+routerUsers.post('/register', register);
 
-routerUsers.get('/current', (req, res) => res.json('current'));
+routerUsers.get('/current', auth, (req, res) => current(req as any, res));
 
 export default routerUsers;

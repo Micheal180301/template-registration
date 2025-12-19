@@ -9,8 +9,11 @@ import type {
   TypeResponceSuccessfulLogin,
   TypeRequestRegister,
   TypeResponceRegister,
+  TypeRequestAuth,
 } from './types';
-import { token } from 'morgan';
+
+// ← только TypeRequestAuth
+import { TypeResponceCurrent } from './types';
 
 const prisma = new PrismaClient();
 
@@ -106,5 +109,37 @@ export const register = async (
   } catch (error) {
     console.log('Ошибка в register: ', error);
     return res.status(500).json({ error: 'Неизвестная ошибка на сервере' });
+  }
+};
+
+/**
+ * @route GET /api/user/current
+ * @desc текущщий юзер
+ * @access Private
+ */
+
+// users.ts
+
+// import { TypeRequestAuth, TypeResponseCurrent } from './types';
+
+// controllers/users.ts
+
+// ↑ обращаемся к TypeRequestAuth из middleware/types.ts
+
+export const current = async (
+  req: TypeRequestAuth, // ← после auth req точно имеет user
+  res: TypeResponceCurrent // ← из middleware/types.ts, но должен совпадать с types.ts
+) => {
+  try {
+    const resUser = {
+      name: req.user.name,
+      email: req.user.email,
+      userId: req.user.id,
+    };
+
+    return res.status(200).json(resUser);
+  } catch (error) {
+    console.error('Ошибка в current:', error);
+    return res.status(500).json({ error: 'Ошибка сервера' });
   }
 };
