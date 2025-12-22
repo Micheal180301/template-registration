@@ -1,11 +1,9 @@
 // middleware/auth.ts
 
-import { PrismaClient } from '@prisma/client';
+import prisma from '../db';
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { TypeResponceAuth } from './types'; // ← только для res
-
-const prisma = new PrismaClient();
 
 export const auth = async (
   req: Request, // ← обычный Request (ещё нет req.user!)
@@ -27,7 +25,7 @@ export const auth = async (
     const decoded = jwt.verify(token, secret) as { userId: string };
 
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { userId: decoded.userId },
     });
 
     if (!user) {

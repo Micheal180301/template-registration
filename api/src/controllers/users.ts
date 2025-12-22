@@ -1,8 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-import { PrismaClient } from '@prisma/client';
-
 import type {
   TypeRequestLogin,
   TypeResponceLogin,
@@ -15,7 +13,7 @@ import type {
 // ← только TypeRequestAuth
 import { TypeResponceCurrent } from './types';
 
-const prisma = new PrismaClient();
+import prisma from '../db';
 
 /**
  * @route POST /api/user/login
@@ -42,17 +40,17 @@ export const login = async (req: TypeRequestLogin, res: TypeResponceLogin) => {
     ); // сравниваем пароли
 
     if (!isCorrectedPassword)
-      return res.status(400).json({ error: 'Неверный пароль' });
+      return res.status(400).json({ error: 'Неверный email или пароль' });
 
     const secret = process.env.JWT_SECRET;
 
     if (!secret) return res.status(500).json({ error: 'Ошибка сервера' });
 
     const userData: TypeResponceSuccessfulLogin = {
-      userId: user.id, // не смотря на то что в модели у нас userId настроено так что это поле сдесь просто id
+      userId: user.userId, // не смотря на то что в модели у нас userId настроено так что это поле сдесь просто id
       name: user.name!,
       email: user.email,
-      token: jwt.sign({ userId: user.id }, secret, { expiresIn: '30d' }), // создаем токен
+      token: jwt.sign({ userId: user.userId }, secret, { expiresIn: '30d' }), // создаем токен
     };
     return res.status(200).json(userData);
   } catch (error) {
@@ -101,10 +99,10 @@ export const register = async (
     if (!secret) return res.status(500).json({ error: 'Ошибка сервера' });
 
     return res.status(201).json({
-      userId: user.id,
+      userId: user.userId,
       email: user.email,
       name: user.name!,
-      token: jwt.sign({ userId: user.id }, secret, { expiresIn: '30d' }),
+      token: jwt.sign({ userId: user.userId }, secret, { expiresIn: '30d' }),
     });
   } catch (error) {
     console.log('Ошибка в register: ', error);
@@ -134,7 +132,7 @@ export const current = async (
     const resUser = {
       name: req.user.name,
       email: req.user.email,
-      userId: req.user.id,
+      userId: req.user.userId,
     };
 
     return res.status(200).json(resUser);
