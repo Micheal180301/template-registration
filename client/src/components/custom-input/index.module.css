@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.name {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  transition: all 0.3s linear;
+}
+
+.input {
+  outline: none;
+  background-color: rgba(240, 248, 255, 0);
+  border-radius: 7px;
+  padding: 3px 10px;
+  background-color: rgba(52, 107, 162, 0);
+  border: 1px solid gray;
+  box-sizing: border-box;
+  transition: all 0.3s linear;
+}
+
+.container:hover .name {
+  color: rgb(121, 255, 255);
+}
+.container:hover .input {
+  border: 1px solid rgb(121, 255, 255);
+}
