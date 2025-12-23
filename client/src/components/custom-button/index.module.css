@@ -6,12 +6,23 @@
   border-radius: 7px;
   padding: 3px 13px;
   background-color: rgba(52, 107, 162, 0);
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   box-sizing: border-box;
   transition: all 0.3s linear;
+}
+
+.base {
+  border: 1px solid gray;
+}
+
+.ghost {
+  border: 1px solid rgba(128, 128, 128, 0);
 }
 
 .button:hover {
   border: 1px solid rgb(121, 255, 255);
   color: rgb(121, 255, 255);
+}
+.ghost:hover {
+  border: 1px solid rgba(128, 128, 128, 0);
 }

@@ -33,7 +33,7 @@ const RegisterPage = () => {
           placeholder="Password...."
           onChange={() => null}
         />
-        <CustomButton type="submit">Submit</CustomButton>
+        <CustomButton type="submit">Register</CustomButton>
         <Space display="row" size="small">
           Do you already have an account?
           <CustomLink to={PATHS.login}>Sign In!</CustomLink>
