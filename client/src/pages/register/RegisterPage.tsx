@@ -14,19 +14,28 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [isMatch, setIsMatch] = useState(false);
 
   const registerHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsMatch(false);
+    setError('');
     try {
       if (!email || !name || !password || !confirmPassword) {
-        return setError('Не все поля заполнены');
+        return setError('Not all fields are filled in');
       }
       if (
         password !== confirmPassword &&
         password !== '' &&
         confirmPassword !== ''
       ) {
-        return setError('Пароли должны совпадать');
+        setError('Passwords must match');
+        setIsMatch(true);
+        return;
+      }
+      if (password === confirmPassword && password.length < 6) {
+        setError('Minimum password length 6 symbol');
+        return;
       }
       ///отправляем на сервер
     } catch (error) {
@@ -50,12 +59,14 @@ const RegisterPage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <CustomInput
-          nameInput="Сome up with a password"
+          invalid={isMatch}
+          nameInput="Come up with a password"
           type="password"
           placeholder="Password..."
           onChange={(e) => setPassword(e.target.value)}
         />
         <CustomInput
+          invalid={isMatch}
           nameInput="Repeat the password"
           type="password"
           placeholder="Password...."

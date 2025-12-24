@@ -16,7 +16,7 @@ const LoginPage = () => {
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      if (!email || !passwoed) return setError('Не все поля заполнеы');
+      if (!email || !passwoed) return setError('Not all fields are filled in');
 
       // отправляем
     } catch (error) {

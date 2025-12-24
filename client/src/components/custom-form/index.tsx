@@ -1,5 +1,4 @@
 import style from './index.module.css';
-import type { ChangeEvent } from 'react';
 
 type Props = {
   children: React.ReactNode;

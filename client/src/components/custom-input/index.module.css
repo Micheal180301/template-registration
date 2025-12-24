@@ -8,10 +8,16 @@
 .name {
   margin-left: 10px;
   font-size: 0.8rem;
+  font-weight: 200;
   transition: all 0.3s linear;
 }
 
+.nameRed {
+  color: red;
+}
+
 .input {
+  font-weight: 300;
   outline: none;
   background-color: rgba(240, 248, 255, 0);
   border-radius: 7px;
@@ -22,9 +28,25 @@
   transition: all 0.3s linear;
 }
 
+.base {
+  border: 1px solid gray;
+}
+
+.invalid {
+  border: 1px solid rgb(255, 34, 82);
+}
+
 .container:hover .name {
   color: rgb(121, 255, 255);
 }
 .container:hover .input {
   border: 1px solid rgb(121, 255, 255);
+}
+
+.container:hover .nameRed {
+  color: rgb(255, 140, 165);
+}
+
+.container:hover .invalid {
+  border: 1px solid rgb(255, 140, 165);
 }

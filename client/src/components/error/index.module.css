@@ -1,5 +1,6 @@
 .error {
   font-size: 0.8rem;
-  color: rgb(255, 88, 88);
+  /* font-weight: 200; */
+  color: rgb(255, 34, 82);
   transition: all 0.3s linear;
 }
