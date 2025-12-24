@@ -1,9 +1,10 @@
 import style from './index.module.css';
+import type { ChangeEvent } from 'react';
 
 type Props = {
   children: React.ReactNode;
   name: string;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const CustomForm = ({ children, name, onSubmit }: Props) => {

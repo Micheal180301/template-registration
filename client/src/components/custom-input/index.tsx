@@ -1,16 +1,17 @@
 import style from './index.module.css';
+import type { ChangeEvent } from 'react';
 
 type Props = {
-  name?: string;
-  onChange?: () => void;
+  nameInput?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: 'text' | 'password';
   placeholder?: string;
 };
 
-const CustomInput = ({ name, type, placeholder, onChange }: Props) => {
+const CustomInput = ({ nameInput, type, placeholder, onChange }: Props) => {
   return (
     <div className={style.container}>
-      <span className={style.name}>{name}</span>
+      <span className={style.name}>{nameInput}</span>
       <input
         type={type}
         placeholder={placeholder}
