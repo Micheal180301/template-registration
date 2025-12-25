@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import React from 'react';
 import Header from '../header';
@@ -15,6 +15,7 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  const location = useLocation();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +32,28 @@ const Layout = ({ children }: Props) => {
           {user && (
             <CustomButton type="button" border="ghost" onClick={logOutHandler}>
               Log Out
+            </CustomButton>
+          )}
+          {location.pathname === PATHS.login && (
+            <CustomButton
+              type="button"
+              border="ghost"
+              onClick={() => {
+                navigate(`${PATHS.register}`);
+              }}
+            >
+              Register!
+            </CustomButton>
+          )}
+          {location.pathname === PATHS.register && (
+            <CustomButton
+              type="button"
+              border="ghost"
+              onClick={() => {
+                navigate(`${PATHS.login}`);
+              }}
+            >
+              login!
             </CustomButton>
           )}
         </Space>
