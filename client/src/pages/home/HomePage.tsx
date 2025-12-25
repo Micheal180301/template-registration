@@ -15,7 +15,7 @@ const HamePage = () => {
     if (!user) {
       navigate(`${PATHS.login}`);
     }
-  }, []);
+  }, [navigate, user]);
   return (
     <Layout>
       <div>HamePage</div>

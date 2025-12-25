@@ -20,7 +20,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [isMatch, setIsMatch] = useState(false);
+  const [isInvalidate, setIsInvalidte] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const RegisterPage = () => {
 
   const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsMatch(false);
+    setIsInvalidte(false);
     setError('');
     try {
       if (!email || !name || !password || !confirmPassword) {
@@ -40,10 +40,11 @@ const RegisterPage = () => {
         confirmPassword !== ''
       ) {
         setError('Passwords must match');
-        setIsMatch(true);
+        setIsInvalidte(true);
         return;
       }
       if (password === confirmPassword && password.length < 6) {
+        setIsInvalidte(true);
         setError('Minimum password length 6 symbol');
         return;
       }
@@ -77,14 +78,14 @@ const RegisterPage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <CustomInput
-          invalid={isMatch}
+          invalid={isInvalidate}
           nameInput="Come up with a password"
           type="password"
           placeholder="Password..."
           onChange={(e) => setPassword(e.target.value)}
         />
         <CustomInput
-          invalid={isMatch}
+          invalid={isInvalidate}
           nameInput="Repeat the password"
           type="password"
           placeholder="Password...."
