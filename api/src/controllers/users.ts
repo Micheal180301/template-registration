@@ -10,7 +10,6 @@ import type {
   TypeRequestAuth,
 } from './types';
 
-// ← только TypeRequestAuth
 import { TypeResponceCurrent } from './types';
 
 import prisma from '../db';
@@ -116,17 +115,9 @@ export const register = async (
  * @access Private
  */
 
-// users.ts
-
-// import { TypeRequestAuth, TypeResponseCurrent } from './types';
-
-// controllers/users.ts
-
-// ↑ обращаемся к TypeRequestAuth из middleware/types.ts
-
 export const current = async (
-  req: TypeRequestAuth, // ← после auth req точно имеет user
-  res: TypeResponceCurrent // ← из middleware/types.ts, но должен совпадать с types.ts
+  req: TypeRequestAuth,
+  res: TypeResponceCurrent
 ) => {
   try {
     const resUser = {

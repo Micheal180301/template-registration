@@ -1,4 +1,3 @@
-// src/index.ts
 import express from 'express';
 import cors from 'cors';
 import logger from 'morgan';
@@ -23,5 +22,5 @@ app.use(express.json());
 app.use('/api/user', routerUsers);
 
 app.listen(PORT, IP, () => {
-  console.log(`✅ The server is Runing on: http://${IP}:${PORT}`);
+  console.log(`The server is Runing on: http://${IP}:${PORT}`);
 });

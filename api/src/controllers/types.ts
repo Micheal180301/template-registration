@@ -1,9 +1,5 @@
-// types.ts
-
 import { Request, Response } from 'express';
 import { User } from '@prisma/client';
-
-// =============== ТИПЫ ДЛЯ REQUEST ===============
 
 type TypeRequestLoginBody = {
   email: string;
@@ -19,8 +15,6 @@ type TypeRequestRegisterBody = {
 };
 
 export type TypeRequestRegister = Request<{}, {}, TypeRequestRegisterBody>;
-
-// =============== ТИПЫ ДЛЯ RESPONSE ===============
 
 export type TypeResponceSuccessfulLogin = {
   name: string;
@@ -51,8 +45,6 @@ type TypeResponceRegisterError = {
 export type TypeResponceRegister = Response<
   TypeResponceSuccessfulRegister | TypeResponceRegisterError
 >;
-
-// =============== ТИПЫ ДЛЯ /current ===============
 
 export type TypeResponseUser = {
   userId: string;
