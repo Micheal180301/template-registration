@@ -11,6 +11,8 @@ listenerMiddleware.startListening({
 
     if (action.payload.token) {
       localStorage.setItem('token', action.payload.token);
+    } else {
+      console.warn('No token in login response!', action.payload);
     }
   },
 }); // записваем в сторедж при логине
@@ -25,3 +27,5 @@ listenerMiddleware.startListening({
     }
   },
 }); // записваем в сторедж при реге
+
+export default listenerMiddleware;

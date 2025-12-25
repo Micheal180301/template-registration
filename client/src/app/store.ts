@@ -5,6 +5,7 @@ import authSlice from './authSlice';
 
 import type { Action } from 'redux';
 import type { ThunkAction } from 'redux-thunk';
+import listenerMiddleware from '../middleware/listenerMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +13,9 @@ export const store = configureStore({
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware()
+      .concat(api.middleware)
+      .concat(listenerMiddleware.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

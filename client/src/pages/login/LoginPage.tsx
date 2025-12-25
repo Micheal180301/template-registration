@@ -12,6 +12,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useLoginMutation } from '../../app/service/authApi';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../components/layout';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -37,28 +38,30 @@ const LoginPage = () => {
   };
 
   return (
-    <CustomForm name="Login" onSubmit={login}>
-      <CustomInput
-        placeholder="Email"
-        nameInput="Enter email"
-        type="text"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <CustomInput
-        placeholder="Password"
-        nameInput="Enter password"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <CustomButton type="submit">Log In!</CustomButton>
-      <Space display="row" size="small">
-        You don't have an account?
-        <CustomLink to={PATHS.register}>Registration</CustomLink>
-      </Space>
-      <Space display="row" size="small">
-        <Error>{error}</Error>{' '}
-      </Space>
-    </CustomForm>
+    <Layout>
+      <CustomForm name="Login" onSubmit={login}>
+        <CustomInput
+          placeholder="Email"
+          nameInput="Enter email"
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <CustomInput
+          placeholder="Password"
+          nameInput="Enter password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <CustomButton type="submit">Log In!</CustomButton>
+        <Space display="row" size="small">
+          You don't have an account?
+          <CustomLink to={PATHS.register}>Registration</CustomLink>
+        </Space>
+        <Space display="row" size="small">
+          <Error>{error}</Error>{' '}
+        </Space>
+      </CustomForm>
+    </Layout>
   );
 };
 

@@ -12,6 +12,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useRegisterMutation } from '../../app/service/authApi';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../components/layout';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -61,7 +62,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
+    <Layout>
       <CustomForm onSubmit={registerHandler} name="Register">
         <CustomInput
           nameInput="Enter your name"
@@ -98,7 +99,7 @@ const RegisterPage = () => {
           <Error>{error}</Error>
         </Space>
       </CustomForm>
-    </>
+    </Layout>
   );
 };
 
