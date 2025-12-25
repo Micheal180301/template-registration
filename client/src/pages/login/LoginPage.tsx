@@ -8,19 +8,31 @@ import Space from '../../components/space';
 import { PATHS } from '../../paths';
 import Error from '../../components/error';
 
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+import { useLoginMutation } from '../../app/service/authApi';
+import { useNavigate } from 'react-router-dom';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
-  const [passwoed, setPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const login = (e: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const [loginUser] = useLoginMutation();
+
+  const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      if (!email || !passwoed) return setError('Not all fields are filled in');
+      if (!email || !password) return setError('Not all fields are filled in');
 
-      // отправляем
-    } catch (error) {
-      console.log('Неизвестная ошибка: ', error);
+      await loginUser({ email, password }).unwrap();
+      navigate(`${PATHS.home}`);
+    } catch (err) {
+      const errorData = (err as FetchBaseQueryError).data as { error?: string };
+      setError(errorData.error || 'Unknown error');
+      // console.log('Неизвестная ошибка: ', err);
     }
   };
 

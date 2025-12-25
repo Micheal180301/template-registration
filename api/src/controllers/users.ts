@@ -25,13 +25,13 @@ export const login = async (req: TypeRequestLogin, res: TypeResponceLogin) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(401).json({ error: 'Неверный email или пароль' }); // 400 ошибка в обекте Request(тоесть ошибка на строне клиента)
+      return res.status(401).json({ error: 'Incorrect email or password' }); // 400 ошибка в обекте Request(тоесть ошибка на строне клиента)
     }
 
     const user = await prisma.user.findFirst({ where: { email: email } }); // ищщем в базе объект у котрого совпадает email
 
     if (!user)
-      return res.status(401).json({ error: 'Не верный email или пароль' }); // ошибка на клиенте(клиент вводит лажу)
+      return res.status(401).json({ error: 'Incorrect email or password' }); // ошибка на клиенте(клиент вводит лажу)
 
     const isCorrectedPassword = await bcrypt.compare(
       password,
@@ -39,11 +39,11 @@ export const login = async (req: TypeRequestLogin, res: TypeResponceLogin) => {
     ); // сравниваем пароли
 
     if (!isCorrectedPassword)
-      return res.status(400).json({ error: 'Неверный email или пароль' });
+      return res.status(400).json({ error: 'Incorrect email or password' });
 
     const secret = process.env.JWT_SECRET;
 
-    if (!secret) return res.status(500).json({ error: 'Ошибка сервера' });
+    if (!secret) return res.status(500).json({ error: 'Server R.I.P' });
 
     const userData: TypeResponceSuccessfulLogin = {
       userId: user.userId, // не смотря на то что в модели у нас userId настроено так что это поле сдесь просто id
@@ -54,7 +54,7 @@ export const login = async (req: TypeRequestLogin, res: TypeResponceLogin) => {
     return res.status(200).json(userData);
   } catch (error) {
     console.log('Ошибка в Login:', error);
-    return res.status(500).json({ error: 'Неизвестная ошибка на сервере' });
+    return res.status(500).json({ error: 'Server R.I.P' });
   }
 };
 
@@ -72,14 +72,14 @@ export const register = async (
     const { name, email, password } = req.body;
 
     if (!name || !email || !password)
-      return res.status(400).json({ error: 'Запоните обязательные поля' });
+      return res.status(400).json({ error: 'Fill in the required fields' });
 
     const isUser = await prisma.user.findFirst({ where: { email: email } });
 
     if (isUser)
       return res
         .status(409) // статус для уже существующих ресурсов
-        .json({ error: 'Пользователь с таким email уже существует' });
+        .json({ error: 'The user with this address already exists' });
 
     const salt = await bcrypt.genSalt(10);
 
@@ -95,7 +95,7 @@ export const register = async (
 
     const secret = process.env.JWT_SECRET;
 
-    if (!secret) return res.status(500).json({ error: 'Ошибка сервера' });
+    if (!secret) return res.status(500).json({ error: 'Server R.I.P' });
 
     return res.status(201).json({
       userId: user.userId,
@@ -105,7 +105,7 @@ export const register = async (
     });
   } catch (error) {
     console.log('Ошибка в register: ', error);
-    return res.status(500).json({ error: 'Неизвестная ошибка на сервере' });
+    return res.status(500).json({ error: 'Server R.I.P' });
   }
 };
 
@@ -129,6 +129,6 @@ export const current = async (
     return res.status(200).json(resUser);
   } catch (error) {
     console.error('Ошибка в current:', error);
-    return res.status(500).json({ error: 'Ошибка сервера' });
+    return res.status(500).json({ error: 'Server R.I.P' });
   }
 };

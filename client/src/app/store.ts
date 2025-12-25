@@ -11,6 +11,8 @@ export const store = configureStore({
     [api.reducerPath]: api.reducer,
     auth: authSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

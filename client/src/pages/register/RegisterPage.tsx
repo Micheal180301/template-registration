@@ -8,6 +8,11 @@ import Space from '../../components/space';
 import { PATHS } from '../../paths';
 import Error from '../../components/error';
 
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+import { useRegisterMutation } from '../../app/service/authApi';
+import { useNavigate } from 'react-router-dom';
+
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,7 +21,11 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const [isMatch, setIsMatch] = useState(false);
 
-  const registerHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const [registerUser] = useRegisterMutation();
+
+  const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsMatch(false);
     setError('');
@@ -37,9 +46,17 @@ const RegisterPage = () => {
         setError('Minimum password length 6 symbol');
         return;
       }
-      ///отправляем на сервер
-    } catch (error) {
-      console.log('Неизвестная ошибка: ', error);
+      await registerUser({
+        email: email,
+        name: name,
+        password: password,
+      }).unwrap();
+
+      navigate(`${PATHS.home}`);
+    } catch (err) {
+      const errorData = (err as FetchBaseQueryError).data as { error?: string };
+      setError(errorData.error || 'Unknown error');
+      // console.log('Неизвестная ошибка: ', error);
     }
   };
 

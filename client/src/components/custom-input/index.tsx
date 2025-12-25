@@ -16,7 +16,6 @@ const CustomInput = ({
   onChange,
   invalid = false,
 }: Props) => {
-  console.log(invalid);
   const borderClass = invalid ? style.invalid : style.base;
   const nameClass = invalid ? style.nameRed : null;
   return (
