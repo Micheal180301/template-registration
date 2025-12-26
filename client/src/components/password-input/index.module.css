@@ -35,6 +35,7 @@
 }
 
 .type {
+  color: gray;
   position: absolute;
   top: 55%;
   right: 10px; /* или left: 340px, если хочешь фиксированную позицию */

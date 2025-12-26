@@ -16,7 +16,7 @@ const PasswordInput = ({
   onChange,
   invalid = false,
 }: Props) => {
-  const [type, setType] = useState(false);
+  const [type, setType] = useState(true);
   const borderClass = invalid ? style.invalid : style.base;
   const nameClass = invalid ? style.nameRed : null;
   return (
@@ -30,7 +30,7 @@ const PasswordInput = ({
           className={`${style.input} ${borderClass}`}
         />
         <span onClick={() => setType(!type)} className={style.type}>
-          {type ? <EyeFilled /> : <EyeInvisibleFilled />}
+          {type ? <EyeInvisibleFilled /> : <EyeFilled />}
         </span>
       </div>
     </div>

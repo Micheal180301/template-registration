@@ -5,6 +5,7 @@ import { PATHS } from './paths';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 import HomePage from './pages/home/HomePage';
+import Auth from './components/auth';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Auth>
+      <RouterProvider router={router} />
+    </Auth>
+  );
 }
 
 export default App;
