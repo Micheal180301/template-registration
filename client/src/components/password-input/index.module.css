@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.name {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  font-weight: 200;
+  transition: all 0.3s linear;
+}
+
+.nameRed {
+  color: red;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  font-weight: 300;
+  outline: none;
+  background-color: rgba(240, 248, 255, 0);
+  border-radius: 7px;
+  padding: 3px 10px;
+  background-color: rgba(52, 107, 162, 0);
+  border: 1px solid gray;
+  box-sizing: border-box;
+  transition: all 0.3s linear;
+}
+
+.type {
+  position: absolute;
+  top: 55%;
+  right: 10px; /* или left: 340px, если хочешь фиксированную позицию */
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2; /* чтобы иконка была поверх инпута */
+  transition: all 0.3s linear;
+}
+
+.type:hover {
+  color: rgb(121, 255, 255);
+}
+
+.base {
+  border: 1px solid gray;
+}
+
+.invalid {
+  border: 1px solid rgb(255, 34, 82);
+}
+
+.container:hover .name {
+  color: rgb(121, 255, 255);
+}
+.container:hover .input {
+  border: 1px solid rgb(121, 255, 255);
+}
+
+.container:hover .nameRed {
+  color: rgb(255, 140, 165);
+}
+
+.container:hover .invalid {
+  border: 1px solid rgb(255, 140, 165);
+}

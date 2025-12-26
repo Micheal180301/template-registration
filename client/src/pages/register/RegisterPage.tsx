@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import Layout from '../../components/layout';
 import CustomButton from '../../components/custom-button';
 import CustomForm from '../../components/custom-form';
 import CustomInput from '../../components/custom-input';
@@ -11,8 +13,7 @@ import Error from '../../components/error';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useRegisterMutation } from '../../app/service/authApi';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../../components/layout';
+import PasswordInput from '../../components/password-input';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -57,6 +58,7 @@ const RegisterPage = () => {
       navigate(`${PATHS.home}`);
     } catch (err) {
       const errorData = (err as FetchBaseQueryError).data as { error?: string };
+      // setIsInvalidte(true);
       setError(errorData.error || 'Unknown error');
       // console.log('Неизвестная ошибка: ', error);
     }
@@ -77,17 +79,17 @@ const RegisterPage = () => {
           placeholder="Email..."
           onChange={(e) => setEmail(e.target.value)}
         />
-        <CustomInput
+        <PasswordInput
           invalid={isInvalidate}
           nameInput="Come up with a password"
-          type="password"
+          // type="password"
           placeholder="Password..."
           onChange={(e) => setPassword(e.target.value)}
         />
-        <CustomInput
+        <PasswordInput
           invalid={isInvalidate}
           nameInput="Repeat the password"
-          type="password"
+          // type="password"
           placeholder="Password...."
           onChange={(e) => setConfirmPassword(e.target.value)}
         />

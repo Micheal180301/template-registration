@@ -13,11 +13,13 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from '../../app/service/authApi';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/layout';
+import PasswordInput from '../../components/password-input';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isInvalidate, setIsInvalidte] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,13 +27,20 @@ const LoginPage = () => {
 
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsInvalidte(false);
+    setError('');
     try {
-      if (!email || !password) return setError('Not all fields are filled in');
+      if (!email || !password) {
+        setError('Not all fields are filled in');
+        setIsInvalidte(true);
+        return;
+      }
 
       await loginUser({ email, password }).unwrap();
       navigate(`${PATHS.home}`);
     } catch (err) {
       const errorData = (err as FetchBaseQueryError).data as { error?: string };
+      setIsInvalidte(true);
       setError(errorData.error || 'Unknown error');
       // console.log('Неизвестная ошибка: ', err);
     }
@@ -41,15 +50,17 @@ const LoginPage = () => {
     <Layout>
       <CustomForm name="Login" onSubmit={login}>
         <CustomInput
+          invalid={isInvalidate}
           placeholder="Email"
           nameInput="Enter email"
           type="text"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <CustomInput
+        <PasswordInput
           placeholder="Password"
           nameInput="Enter password"
-          type="password"
+          // type="password"
+          invalid={isInvalidate}
           onChange={(e) => setPassword(e.target.value)}
         />
         <CustomButton type="submit">Log In!</CustomButton>

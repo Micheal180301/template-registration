@@ -1,5 +1,6 @@
-import style from './index.module.css';
 import type { ChangeEvent } from 'react';
+
+import style from './index.module.css';
 
 type Props = {
   nameInput?: string;
@@ -11,7 +12,7 @@ type Props = {
 
 const CustomInput = ({
   nameInput,
-  type,
+  type = 'text',
   placeholder,
   onChange,
   invalid = false,
