@@ -14,6 +14,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useRegisterMutation } from '../../app/service/authApi';
 import PasswordInput from '../../components/password-input';
+import PasswordInput1 from '../../components/password-input1';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,9 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isInvalidate, setIsInvalidte] = useState(false);
+
+  const [testPassword, setTestPassword] = useState('');
+  const [testConfirmPassword, setTestConfirmPassword] = useState('');
 
   const navigate = useNavigate();
 
@@ -90,8 +94,26 @@ const RegisterPage = () => {
           invalid={isInvalidate}
           nameInput="Repeat the password"
           // type="password"
-          placeholder="Password...."
+          placeholder="Password..."
           onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <PasswordInput1
+          value={testPassword}
+          match={testConfirmPassword}
+          length={testPassword.length}
+          minimalLangth={8}
+          placeholder="Password..."
+          nameInput="Come up with a password"
+          onChange={(e) => setTestPassword(e.target.value)}
+        />
+        <PasswordInput1
+          value={testConfirmPassword}
+          match={testPassword}
+          length={testConfirmPassword.length}
+          minimalLangth={8}
+          placeholder="Password..."
+          nameInput="Repeat the password"
+          onChange={(e) => setTestConfirmPassword(e.target.value)}
         />
         <CustomButton type="submit">Register</CustomButton>
         <Space display="row" size="small">
