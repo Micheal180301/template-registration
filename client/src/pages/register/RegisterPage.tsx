@@ -14,7 +14,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useRegisterMutation } from '../../app/service/authApi';
 // import PasswordInput from '../../components/password-input';
-import PasswordMatchInput from '../../components/password-math-input';
+import PasswordMatchInput from '../../components/password-match-input';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');

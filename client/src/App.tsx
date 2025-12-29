@@ -6,6 +6,7 @@ import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 import HomePage from './pages/home/HomePage';
 import Auth from './components/auth';
+import ThemeProvider from './components/them-provider';
 
 const router = createBrowserRouter([
   {
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <Auth>
-      <RouterProvider router={router} />
-    </Auth>
+    <ThemeProvider theme="base">
+      <Auth>
+        <RouterProvider router={router} />
+      </Auth>
+    </ThemeProvider>
   );
 }
 

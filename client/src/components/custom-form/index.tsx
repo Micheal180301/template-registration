@@ -18,7 +18,7 @@ const CustomForm = ({ children, name, onSubmit, isError }: Props) => {
   return (
     <form
       onSubmit={onSubmit}
-      className={`${style.form}  ${isError || isError ? style.invalid : ''}`}
+      className={`${style.form}  ${isError ? style.invalid : ''}`}
     >
       <h1 className={style.name}>{name}</h1>
       <div className={`${style.main}`}>{children}</div>

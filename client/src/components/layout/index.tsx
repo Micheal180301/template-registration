@@ -1,10 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import React from 'react';
 import Header from '../header';
 import Space from '../space';
 import CustomButton from '../custom-button';
+
+import { selectUser } from '../../app/authSlice';
 
 import { logOut } from '../../app/authSlice';
 import { PATHS } from '../../paths';
@@ -14,6 +16,7 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  const user = useSelector(selectUser);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div>
       <Header name="Registration-Template">
+        {/* {user && <h1>Hi {user.name}!</h1>} */}
         <Space size="medium" display="row">
           {location.pathname === PATHS.home && (
             <CustomButton type="button" border="ghost" onClick={logOutHandler}>
