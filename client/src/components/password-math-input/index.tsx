@@ -11,7 +11,7 @@ type Props = {
   match: string;
   value: string;
 };
-const PasswordInput1 = ({
+const PasswordMatchInput = ({
   nameInput,
   placeholder,
   onChange,
@@ -70,4 +70,4 @@ const PasswordInput1 = ({
   );
 };
 
-export default PasswordInput1;
+export default PasswordMatchInput;

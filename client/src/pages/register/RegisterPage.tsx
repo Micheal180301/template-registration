@@ -13,16 +13,16 @@ import Error from '../../components/error';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { useRegisterMutation } from '../../app/service/authApi';
-import PasswordInput from '../../components/password-input';
-import PasswordInput1 from '../../components/password-input1';
+// import PasswordInput from '../../components/password-input';
+import PasswordMatchInput from '../../components/password-math-input';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [isInvalidate, setIsInvalidte] = useState(false);
+  // const [isInvalidate, setIsInvalidte] = useState(false);
 
   const [testPassword, setTestPassword] = useState('');
   const [testConfirmPassword, setTestConfirmPassword] = useState('');
@@ -33,30 +33,30 @@ const RegisterPage = () => {
 
   const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsInvalidte(false);
+    // setIsInvalidte(false);
     setError('');
     try {
-      if (!email || !name || !password || !confirmPassword) {
+      if (!email || !name || !testPassword || !testConfirmPassword) {
         return setError('Not all fields are filled in');
       }
       if (
-        password !== confirmPassword &&
-        password !== '' &&
-        confirmPassword !== ''
+        testPassword !== testConfirmPassword &&
+        testPassword !== '' &&
+        testConfirmPassword !== ''
       ) {
         setError('Passwords must match');
-        setIsInvalidte(true);
+        // setIsInvalidte(true);
         return;
       }
-      if (password === confirmPassword && password.length < 6) {
-        setIsInvalidte(true);
+      if (testPassword === testConfirmPassword && testPassword.length < 6) {
+        // setIsInvalidte(true);
         setError('Minimum password length 6 symbol');
         return;
       }
       await registerUser({
         email: email,
         name: name,
-        password: password,
+        password: testPassword,
       }).unwrap();
 
       navigate(`${PATHS.home}`);
@@ -70,7 +70,7 @@ const RegisterPage = () => {
 
   return (
     <Layout>
-      <CustomForm onSubmit={registerHandler} name="Register">
+      <CustomForm onSubmit={registerHandler} name="Register" isError={error}>
         <CustomInput
           nameInput="Enter your name"
           type="text"
@@ -83,7 +83,7 @@ const RegisterPage = () => {
           placeholder="Email..."
           onChange={(e) => setEmail(e.target.value)}
         />
-        <PasswordInput
+        {/* <PasswordInput
           invalid={isInvalidate}
           nameInput="Come up with a password"
           // type="password"
@@ -96,21 +96,21 @@ const RegisterPage = () => {
           // type="password"
           placeholder="Password..."
           onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <PasswordInput1
+        /> */}
+        <PasswordMatchInput
           value={testPassword}
           match={testConfirmPassword}
           length={testPassword.length}
-          minimalLangth={8}
+          minimalLangth={6}
           placeholder="Password..."
           nameInput="Come up with a password"
           onChange={(e) => setTestPassword(e.target.value)}
         />
-        <PasswordInput1
+        <PasswordMatchInput
           value={testConfirmPassword}
           match={testPassword}
           length={testConfirmPassword.length}
-          minimalLangth={8}
+          minimalLangth={6}
           placeholder="Password..."
           nameInput="Repeat the password"
           onChange={(e) => setTestConfirmPassword(e.target.value)}

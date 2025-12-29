@@ -8,11 +8,24 @@
   transition: all 0.3s linear;
 }
 
+.form.invalid {
+  border-color: red;
+}
+.form.invalid > .name {
+  border-color: red;
+}
+
 .form:hover {
   border: 1px solid rgb(121, 255, 255);
 }
+.form.invalid:hover {
+  border: 1px solid rgb(255, 140, 165);
+}
 .form:hover > .name {
   border-bottom: 1px solid rgb(121, 255, 255);
+}
+.form.invalid:hover > .name {
+  border-bottom: 1px solid rgb(255, 140, 165);
 }
 
 .name {

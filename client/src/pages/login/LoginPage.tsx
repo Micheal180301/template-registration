@@ -48,7 +48,7 @@ const LoginPage = () => {
 
   return (
     <Layout>
-      <CustomForm name="Login" onSubmit={login}>
+      <CustomForm name="Login" onSubmit={login} isError={error}>
         <CustomInput
           invalid={isInvalidate}
           placeholder="Email"
